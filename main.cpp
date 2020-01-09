@@ -18,7 +18,6 @@ int main()
 {
     void preprocess();
     preprocess();
-    cout << node_num << "  " <<  side_num << endl;
     nodes[0].node_color = 0;
     for (int i=1;i<node_num;i++){//brush node one by one
         for (int j=0;j<node_num;j++){//brush from the first color 0
@@ -28,13 +27,13 @@ int main()
             }
             if (j_not_exist){
                 nodes[i].node_color = j;
+                break;
             }
         }
     }
     int * color_configuration = new int [node_num];
     for (int i=0;i<node_num;i++){
         color_configuration[i] = nodes[i].node_color;
-        cout << color_configuration[i] << " ";
     }
     int * temp = new int [node_num];
     temp = color_configuration;
@@ -42,6 +41,10 @@ int main()
         if (temp[0] < temp[i]) temp[0] = temp[i];
     }
     cout << temp[0] << endl;
+    for (int i=0;i<node_num-1;i++){
+        cout << nodes[i].node_color << " ";
+    }
+    cout << nodes[node_num-1].node_color << endl;
 }
 
 void preprocess(){
@@ -70,7 +73,6 @@ void preprocess(){
         exit(1);
     }else{
         init_node();
-        // cout << nodes[45].node_bond_num << endl;
     }
 }
 
@@ -98,7 +100,7 @@ void init_node(){
     for (int i=0;i<node_num;i++){//generate bonds of every node
         int count = 0;
         for (int j=0;j<side_num;j++){//count bonds of every node
-            if (i == sides[j][0]) count++;
+            if (i == sides[j][0] || i == sides[j][1]) count++;
         }
         nodes[i].node_bond_num = count;
         bonds[i] = new int [count];
@@ -106,6 +108,9 @@ void init_node(){
         for (int j=0;j<side_num;j++){//store sides into bonds
             if (i == sides[j][0]){
                 bonds[i][k] = sides[j][1];
+                k++;
+            }else if(i == sides[j][1]){
+                bonds[i][k] = sides[j][0];
                 k++;
             }
         }
