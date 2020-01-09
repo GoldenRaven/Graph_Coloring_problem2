@@ -4,8 +4,9 @@ using namespace std;
 int main()
 {
     int node_num, side_num, color_num;
-    node_num=4;
-    side_num=4;
+    int fac(int);
+    node_num=5;
+    side_num=10;
     // 如果边数为0,最优排列只有一种,即全为0
     if (side_num == 0){
         color_num = 1;
@@ -55,5 +56,19 @@ int main()
             if (node_num%2 != 0) cout << "2 ";
             cout << endl;
         }
+    }else if (side_num == fac(node_num)/(fac(node_num - 2)*fac(2))){
+        color_num = node_num;
+        cout << color_num << endl;
+        for (int i = 0;i<node_num-1;i++){
+            cout << i << " ";
+        }
     }
+}
+
+int fac(int n){
+    int ans=1;
+    for (int i=1;i<=n;i++){
+        ans = ans * i;
+    }
+    return ans;
 }
