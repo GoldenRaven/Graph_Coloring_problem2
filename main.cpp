@@ -1,6 +1,8 @@
 #include<iostream>
 #include<fstream>
 #include<iomanip>
+#include<algorithm>
+
 using namespace std;
 
 class node{
@@ -16,7 +18,30 @@ int main()
 {
     void preprocess();
     preprocess();
-    // cout << node_num << "  " <<  side_num << endl;
+    cout << node_num << "  " <<  side_num << endl;
+    nodes[0].node_color = 0;
+    for (int i=1;i<node_num;i++){//brush node one by one
+        for (int j=0;j<node_num;j++){//brush from the first color 0
+            bool j_not_exist = true;
+            for (int k=0;k<nodes[i].node_bond_num;k++){
+                if (j == nodes[nodes[i].node_bond_index[k]].node_color) j_not_exist = false;
+            }
+            if (j_not_exist){
+                nodes[i].node_color = j;
+            }
+        }
+    }
+    int * color_configuration = new int [node_num];
+    for (int i=0;i<node_num;i++){
+        color_configuration[i] = nodes[i].node_color;
+        cout << color_configuration[i] << " ";
+    }
+    int * temp = new int [node_num];
+    temp = color_configuration;
+    for (int i=1;i<node_num;i++){
+        if (temp[0] < temp[i]) temp[0] = temp[i];
+    }
+    cout << temp[0] << endl;
 }
 
 void preprocess(){
@@ -86,6 +111,7 @@ void init_node(){
         }
     }
     for (int i=0;i<node_num;i++){
-        nodes[i].node_bond_index = bonds[i];
+        nodes[i].node_bond_index = bonds[i];//initialize bond index
+        nodes[i].node_color = node_num;//initialize node color to an illegal value
     }
 }
