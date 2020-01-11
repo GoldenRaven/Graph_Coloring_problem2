@@ -18,9 +18,9 @@ int main()
 {
     void preprocess();
     preprocess();
-    nodes[0].node_color = 0;
+    nodes[0].node_color = 0;//brush from the first color 0
     for (int i=1;i<node_num;i++){//brush node one by one
-        for (int j=0;j<node_num;j++){//brush from the first color 0
+        for (int j=0;j<node_num;j++){
             bool j_not_exist = true;
             for (int k=0;k<nodes[i].node_bond_num;k++){
                 if (j == nodes[nodes[i].node_bond_index[k]].node_color) j_not_exist = false;
