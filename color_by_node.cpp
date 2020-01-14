@@ -40,7 +40,7 @@ int main()
     for (int i=1;i<node_num;i++){
         if (temp[0] < temp[i]) temp[0] = temp[i];
     }
-    cout << temp[0] << endl;
+    cout << temp[0]+1 << endl;
     for (int i=0;i<node_num-1;i++){
         cout << nodes[i].node_color << " ";
     }
